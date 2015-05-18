@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>Server-side events example</title>
+</head>
+<p>This is an example of how server-side events work.</p>
+<p>Current server time is: <div id="servertime"></div></p>
+
+<script type="text/javascript">
+   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+   var es = new EventSource("/server_time");
+   es.addEventListener("mesg", function(event) {
+      $('#servertime').html(event.data);
+   }, false);
+</script>
+</html>
